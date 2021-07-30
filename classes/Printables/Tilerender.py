@@ -32,7 +32,7 @@ class Renderer(Printable):
                 self.game.changeState(GameState.ROOM_SELECTION)
 
     def update(self, frame):
-        if frame in getFrequencyList(6):
+        if frame in get_frequency_list(6):
             self.current_anim_index += 1
 
         if self.current_anim_index == 4:

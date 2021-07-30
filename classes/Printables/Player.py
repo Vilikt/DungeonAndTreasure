@@ -84,7 +84,7 @@ class Player(Printable):
             pygame.event.post(event)
 
     def update(self, frame):
-        if frame in getFrequencyList(10):
+        if frame in get_frequency_list(10):
             self.sprite_index += 1
 
         if self.sprite_index == 2:

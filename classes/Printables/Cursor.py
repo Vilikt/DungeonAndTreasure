@@ -60,7 +60,7 @@ class Cursor(Printable):
                 self.game.sounds[Sounds.CURSOR].play()
 
     def update(self, frame):
-        if frame in getFrequencyList(10):
+        if frame in get_frequency_list(10):
             self.sprite_index += 1
 
         if self.sprite_index == len(self.sprites.get('up_left')):

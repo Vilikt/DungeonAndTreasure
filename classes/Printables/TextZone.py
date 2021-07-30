@@ -73,16 +73,16 @@ class TextZone(Printable):
     def update(self, frame):
         if self.pause:
             if not self.question:
-                if frame in getFrequencyList(30):
+                if frame in get_frequency_list(30):
                     self.show_arrow = True
                 else:
                     self.show_arrow = False
             elif self.isEndOfText():
-                if frame in getFrequencyList(30):
+                if frame in get_frequency_list(30):
                     self.show_select_cursor = True
                 else:
                     self.show_select_cursor = False
-        elif frame in getFrequencyList(40):
+        elif frame in get_frequency_list(40):
             self.show_arrow = False
 
             if (self.current_text_line_index >= 3 and self.isEndOfTheCurrentLine()) or self.isEndOfText():
