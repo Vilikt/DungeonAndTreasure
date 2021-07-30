@@ -29,7 +29,7 @@ DUNGEON_MAX_WIDTH = int(config.get('DUNGEON_MAX_WIDTH'))
 DUNGEON_MAX_HEIGHT = int(config.get('DUNGEON_MAX_HEIGHT'))
 DUNGEON_MIN_DISTANCE_BTW_P_AND_D = int(config.get('DUNGEON_MIN_DISTANCE_BTW_P_AND_D'))
 DUNGEON_MIN_DISTANCE_DRAG_AWAKE = int(config.get('DUNGEON_MIN_DISTANCE_DRAG_AWAKE'))
-DUNGEON_MAX_NBR_WALLS = int(config.get('DUNGEON_MAX_NBR_WALLS')) #(DUNGEON_MAX_WIDTH - 1) * (DUNGEON_MAX_HEIGHT - 1)
+DUNGEON_MAX_NBR_WALLS = int(config.get('DUNGEON_MAX_NBR_WALLS'))  # (DUNGEON_MAX_WIDTH - 1) * (DUNGEON_MAX_HEIGHT - 1)
 
 # COLORS
 COLOR_BLACK = (0, 0, 0)
@@ -47,30 +47,25 @@ BACKGROUND_COLOR_3 = (37, 128, 85)
 BACKGROUND_COLOR_4 = (129, 70, 37)
 BACKGROUND_COLOR_5 = (82, 37, 128)
 
+
+def get_control_value(control_name):
+    try:
+        str_control = config.get(control_name)
+
+        if '(' in str_control and ')' in str_control and ',' in str_control:  # this is a tuple
+            temp = config.get(control_name).replace('(', '').replace(')', '')
+            return tuple(map(int, temp.split(', ')))
+        else:
+            return int(config.get(control_name))
+    except (ValueError, AttributeError):
+        return int(config.get(control_name))
+
+
 # CONTROLS
-try:
-    temp = config.get('CONTROL_UP').replace('(', '').replace(')', '')
-    CONTROL_UP = tuple(map(int, temp.split(', ')))
-except (ValueError, AttributeError):
-    CONTROL_UP = int(config.get('CONTROL_UP'))
-
-try:
-    temp = config.get('CONTROL_DOWN').replace('(', '').replace(')', '')
-    CONTROL_DOWN = tuple(map(int, temp.split(', ')))
-except (ValueError, AttributeError):
-    CONTROL_DOWN = int(config.get('CONTROL_DOWN'))
-
-try:
-    temp = config.get('CONTROL_LEFT').replace('(', '').replace(')', '')
-    CONTROL_LEFT = tuple(map(int, temp.split(', ')))
-except (ValueError, AttributeError):
-    CONTROL_LEFT = int(config.get('CONTROL_LEFT'))
-
-try:
-    temp = config.get('CONTROL_RIGHT').replace('(', '').replace(')', '')
-    CONTROL_RIGHT = tuple(map(int, temp.split(', ')))
-except (ValueError, AttributeError):
-    CONTROL_RIGHT = int(config.get('CONTROL_RIGHT'))
+CONTROL_UP = get_control_value('CONTROL_UP')
+CONTROL_DOWN = get_control_value('CONTROL_DOWN')
+CONTROL_LEFT = get_control_value('CONTROL_LEFT')
+CONTROL_RIGHT = get_control_value('CONTROL_RIGHT')
 
 CONTROL_A = int(config.get('CONTROL_A'))
 CONTROL_B = int(config.get('CONTROL_B'))
