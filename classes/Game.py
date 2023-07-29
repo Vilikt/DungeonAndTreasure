@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from pygame.locals import *
 from classes.Printables.Background import Background
 from classes.Printables.Cursor import Cursor
@@ -28,30 +30,33 @@ with the same sprites, but index with their position on the sprite_set image.
 
 
 class Game:
+
     def __init__(self):
+        self.assetsPath = Path(root / "assets")
+
         self.sprites_sets = {
-            'gui': SpriteSet("assets/GUI.png", SPRITE_WIDTH, SPRITE_HEIGHT),
-            'overworldL': SpriteSet("assets/Overworld (Light).png", 16, 16)
+            'gui': SpriteSet(self.assetsPath / "GUI.png", SPRITE_WIDTH, SPRITE_HEIGHT),
+            'overworldL': SpriteSet(self.assetsPath / "Overworld (Light).png", 16, 16)
         }
 
         self.state = None
 
         # Sounds
         self.sounds = {
-            Sounds.CURSOR: pygame.mixer.Sound('assets/sounds/cursor.wav'),
-            Sounds.SELECT: pygame.mixer.Sound('assets/sounds/select.wav'),
-            Sounds.LETTER: pygame.mixer.Sound('assets/sounds/letter.wav'),
-            Sounds.TEXT_DONE: pygame.mixer.Sound('assets/sounds/text_Done.wav'),
-            Sounds.WALL: pygame.mixer.Sound('assets/sounds/wall.wav'),
-            Sounds.DRAGON_FLY: pygame.mixer.Sound('assets/sounds/dragon_fly.wav'),
-            Sounds.DRAGON_AWAKE: pygame.mixer.Sound('assets/sounds/dragoon_awake.wav'),
-            Sounds.HURT_PLAYER: pygame.mixer.Sound('assets/sounds/hurt.wav'),
-            Sounds.TELEPORT_PLAYER: pygame.mixer.Sound('assets/sounds/teleport.wav'),
-            Sounds.WALK_PLAYER: pygame.mixer.Sound('assets/sounds/walk.wav'),
-            Sounds.FOUND_TREASURE: pygame.mixer.Sound('assets/sounds/found_treasure.wav'),
-            Sounds.GET_ITEM: pygame.mixer.Sound('assets/sounds/get_item.wav'),
-            Sounds.WIN: pygame.mixer.Sound('assets/sounds/win.wav'),
-            Sounds.BOUNCE: pygame.mixer.Sound('assets/sounds/bounce.wav')
+            Sounds.CURSOR: pygame.mixer.Sound(self.assetsPath / "sounds" / 'cursor.wav'),
+            Sounds.SELECT: pygame.mixer.Sound(self.assetsPath / "sounds" / 'select.wav'),
+            Sounds.LETTER: pygame.mixer.Sound(self.assetsPath / "sounds" / 'letter.wav'),
+            Sounds.TEXT_DONE: pygame.mixer.Sound(self.assetsPath / "sounds" / 'text_Done.wav'),
+            Sounds.WALL: pygame.mixer.Sound(self.assetsPath / "sounds" / 'wall.wav'),
+            Sounds.DRAGON_FLY: pygame.mixer.Sound(self.assetsPath / "sounds" / 'dragon_fly.wav'),
+            Sounds.DRAGON_AWAKE: pygame.mixer.Sound(self.assetsPath / "sounds" / 'dragoon_awake.wav'),
+            Sounds.HURT_PLAYER: pygame.mixer.Sound(self.assetsPath / "sounds" / 'hurt.wav'),
+            Sounds.TELEPORT_PLAYER: pygame.mixer.Sound(self.assetsPath / "sounds" / 'teleport.wav'),
+            Sounds.WALK_PLAYER: pygame.mixer.Sound(self.assetsPath / "sounds" / 'walk.wav'),
+            Sounds.FOUND_TREASURE: pygame.mixer.Sound(self.assetsPath / "sounds" / 'found_treasure.wav'),
+            Sounds.GET_ITEM: pygame.mixer.Sound(self.assetsPath / "sounds" / 'get_item.wav'),
+            Sounds.WIN: pygame.mixer.Sound(self.assetsPath / "sounds" / 'win.wav'),
+            Sounds.BOUNCE: pygame.mixer.Sound(self.assetsPath / "sounds" / 'bounce.wav')
         }
 
         # Printable objects
@@ -63,12 +68,12 @@ class Game:
             Pn.CURSOR: Cursor(self, zoom=2),
             Pn.SIDE: Side(self, zoom=2),
             Pn.TEXT_ZONE: TextZone(self, zoom=2),
-            Pn.TITLE_SCREEN: Renderer(self, 'assets/title.tmx', 2)
+            Pn.TITLE_SCREEN: Renderer(self, self.assetsPath / 'title.tmx', 2)
         }
 
         self.getPrintable(Pn.CURSOR).actual_room = self.getPrintable(Pn.DUNGEON).rooms[0][0]
 
-        self.title_img = pygame.image.load('assets/title.png').convert_alpha()
+        self.title_img = pygame.image.load(self.assetsPath / 'title.png').convert_alpha()
         self.title_img = pygame.transform.scale(
             self.title_img,
             (int(self.title_img.get_width() / 2.75), int(self.title_img.get_height() / 2.75))

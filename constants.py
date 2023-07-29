@@ -1,11 +1,16 @@
 from enum import Enum, auto
+from pathlib import Path
+
 import classes.ConfigHandler as Ch
 import pygame
 
 
+root = Path("../") # Must be "./" to work on IDE, but must be "../" to work in EXE file (??).
+
+
 def get_control_value(control_name):
     try:
-        str_control = config.get(control_name)
+        str_control = str(config.get(control_name))
 
         if '(' in str_control and ')' in str_control and ',' in str_control:  # this is a tuple
             temp = config.get(control_name).replace('(', '').replace(')', '')
@@ -24,7 +29,6 @@ def get_frequency_list(freq):
         ret.append(i)
 
     return ret
-
 
 config = Ch.ConfigHandler()
 
@@ -70,10 +74,6 @@ BACKGROUND_COLOR_2 = (37, 115, 128)
 BACKGROUND_COLOR_3 = (37, 128, 85)
 BACKGROUND_COLOR_4 = (129, 70, 37)
 BACKGROUND_COLOR_5 = (82, 37, 128)
-
-
-
-
 
 # CONTROLS
 CONTROL_UP = get_control_value('CONTROL_UP')

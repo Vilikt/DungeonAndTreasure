@@ -1,5 +1,6 @@
 import configparser
-import os
+from pathlib import Path
+import constants
 
 
 class ConfigHandler:
@@ -72,16 +73,19 @@ class ConfigHandler:
             }
         }
 
-        if not os.path.exists('config.ini'):
+        #if not os.path.exists('config.ini'):
+        if not (constants.root / "config.ini").exists():
             self.createConfigFile()
 
-        self.configFilePath = os.path.join(os.path.dirname(__file__), '../config.ini')
+        #self.configFilePath = os.path.join(os.path.dirname(__file__), '../config.ini')
+        self.configFilePath = "config.ini"
         self.configParser.read(self.configFilePath)
 
         self.needConfigControls = False
         self.checkControls()
 
     def checkControls(self):
+        print(self.configParser)
         controls_option = dict(self.configParser.items('CONTROLS'))
 
         for option_name, value in controls_option.items():

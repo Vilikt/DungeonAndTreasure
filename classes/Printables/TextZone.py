@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pygame
 from pygame.locals import *
 from constants import *
@@ -7,11 +9,13 @@ from constants import PrintableNames as Pn
 
 class TextZone(Printable):
     def __init__(self, game, zoom=1, police=None, text='', question=False, start_position=None, end_position=None):
+        self.assetsPath = Path(root / "assets")
+
         super().__init__(game, zoom, start_position, end_position)
 
         self.police = police
         if police is None:
-            self.police = pygame.font.Font("assets/zeldadxt.ttf", TEXT_SIZE * self.zoom)
+            self.police = pygame.font.Font(self.assetsPath / "zeldadxt.ttf", TEXT_SIZE * self.zoom)
 
         self.text = text
         self.question = question
