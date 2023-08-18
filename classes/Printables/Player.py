@@ -14,6 +14,7 @@ class Player(Printable):
         self.actual_room = None
         self.max_move = PLAYER_MAX_MOVE
         self.rest_of_move = self.max_move
+        self.life = PLAYER_MAX_LIFE
         self.start_room = None
 
         self.sprites = {
@@ -32,11 +33,15 @@ class Player(Printable):
         self.actual_room = cursor.actual_room
 
     def hurt(self):
-        self.max_move -= 1
+        self.max_move -= 2
+        self.life -= 1
         self.rest_of_move = self.max_move
-        if self.max_move > 4:
+        if self.life > 0:
             self.game.sounds[Sounds.TELEPORT_PLAYER].play()
             self.actual_room = self.start_room
+        else:
+            self.actual_room = None
+            self.visible = False
         self.got_treasure = False
 
     def handleInput(self, event):

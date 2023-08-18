@@ -5,7 +5,7 @@ import classes.ConfigHandler as Ch
 import pygame
 
 
-root = Path("../") # Must be "./" to work on IDE, but must be "../" to work in EXE file (??).
+root = Path("./") # Must be "./" to work on IDE, but must be "../" to work in EXE file (??).
 
 
 def get_control_value(control_name):
@@ -51,6 +51,7 @@ WINDOW_HEIGHT_SCALED = WINDOW_HEIGHT * SCALE
 
 # PLAYER
 PLAYER_MAX_MOVE = 8
+PLAYER_MAX_LIFE = 3
 
 # DUNGEON
 DUNGEON_MAX_WIDTH = int(config.get('DUNGEON_MAX_WIDTH'))

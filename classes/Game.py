@@ -292,7 +292,7 @@ class Game:
             self.sounds[Sounds.WIN].play()
 
         # Game over
-        if player.max_move < 5 and not self.ending:
+        if player.life <= 0 and not self.ending:
             self.ending = True
             textZone.setNewText(TEXT_LOSE, do_on_end_text=Dn.END_LOSE)
             event = pygame.event.Event(TEXT_ZONE_SHOW)

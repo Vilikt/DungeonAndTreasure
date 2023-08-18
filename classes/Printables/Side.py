@@ -70,10 +70,11 @@ class Side(Printable):
         full_heart = self.game.getSpriteById(1152)
         empty_heart = self.game.getSpriteById(1154)
 
-        for x in range(4, player.max_move):
-            surface.blit(full_heart, (2 + ((x - 4) * SPRITE_WIDTH), 0))
+        for x in range(player.life):
+            surface.blit(full_heart, (2 + (x * SPRITE_WIDTH), 0))
 
-        for x in range(player.max_move - 4, PLAYER_MAX_MOVE - 4):
+        # for x in range(player.max_move - 4, PLAYER_MAX_MOVE - 4):
+        for x in range(player.life, PLAYER_MAX_LIFE):
             surface.blit(empty_heart, (2 + x * SPRITE_WIDTH, 0))
 
         moves_surf = police.render('Mvt:' + str(player.rest_of_move), False, COLOR_BLACK)
